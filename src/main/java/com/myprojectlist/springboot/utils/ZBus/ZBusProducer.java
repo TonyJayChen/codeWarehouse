@@ -16,8 +16,12 @@ import java.io.IOException;
 public class ZBusProducer {
     private Broker broker;
     private Producer p;
-   
 
+    /**
+     * 启动生产者
+     * @param address
+     * @param brokerName
+     */
     public ZBusProducer(String address,String brokerName){
     	try {
 			init(address,brokerName);
@@ -26,49 +30,33 @@ public class ZBusProducer {
 			e.printStackTrace();
 		}
     }
-    
     public void init(String address,String brokerName) throws Exception{
         broker = new ZbusBroker(address);
         p = new Producer(broker, brokerName);
         p.createMQ();
     }
 
-    public <T> T sendSms(T smsBean,String type){
+    /**
+     * 生产者
+     * @param t
+     * @param <T>
+     * @return
+     */
+    public <T> T Calling(T t){
         try {
             Message msg = new Message();
-            msg.setHead("smstype", type);
-            System.out.println(JSON.toJSONString(smsBean));
-            msg.setBody(JSON.toJSONString(smsBean));
+            System.out.println(JSON.toJSONString(t));
+            msg.setBody(JSON.toJSONString(t));
             p.sendSync(msg);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return smsBean;
-    }
-    public void sendStatus(String smsBean){
-        try {
-            Message msg = new Message();
-            msg.setHead("smstype", "");
-            System.out.println(JSON.toJSONString(smsBean));
-            msg.setBody(smsBean);
-            p.sendSync(msg);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        return t ;
     }
 
-    public <T> T Calling(T callingBean){
-        try {
-            Message msg = new Message();
-            System.out.println(JSON.toJSONString(callingBean));
-            msg.setBody(JSON.toJSONString(callingBean));
-            p.sendSync(msg);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return callingBean ;
-    }
-
+    /**
+     * 关闭
+     */
     public void destroy() {
         try {
             broker.close();
