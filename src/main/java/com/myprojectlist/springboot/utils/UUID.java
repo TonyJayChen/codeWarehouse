@@ -15,7 +15,7 @@ public class UUID {
     /**
      * 封装JDK自带的UUID, 通过Random数字生成, 中间无-分割.
      */
-    public static String uuid2() {
+    public static String uuidReolace() {
         return java.util.UUID.randomUUID().toString().replaceAll("-", "");
     }
 
