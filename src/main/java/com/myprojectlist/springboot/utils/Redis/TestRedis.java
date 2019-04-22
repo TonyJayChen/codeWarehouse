@@ -15,7 +15,7 @@ public class TestRedis {
      * 连接redis服务器
      */
     public void connectRedis() {
-        jedis=RedisUtil.getJedis();
+        jedis=RedisConnection.getJedis();
     }
 
     /**
@@ -158,9 +158,9 @@ public class TestRedis {
 
     public void testRedisPool() {
 
-        RedisUtil.getJedis().set("newname", "test");
+        RedisConnection.getJedis().set("newname", "test");
 
-        System.out.println(RedisUtil.getJedis().get("newname"));
+        System.out.println(RedisConnection.getJedis().get("newname"));
 
 
     }
@@ -168,6 +168,6 @@ public class TestRedis {
     public static void main(String[] args) {
         TestRedis test = new TestRedis();
         test.connectRedis();
-        test.testSort();
+        test.testString();
     }
 }
