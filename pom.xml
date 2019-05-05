@@ -19,15 +19,20 @@
     </properties>
 
     <dependencies>
+        <!-- springboot 本身的jar包依赖包括（web,单例测试,读取配置） -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
         <!--本地jar-->
         <dependency>
@@ -121,5 +126,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
