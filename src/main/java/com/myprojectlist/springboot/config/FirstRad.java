@@ -5,6 +5,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
+/**
+ * 注解配置的两种路径写法，一种是file:./config/
+ * 另外一种是classpath:/config/
+ */
 @Component
 @ConfigurationProperties(prefix="config")
 @PropertySource("file:./config/config.properties")
