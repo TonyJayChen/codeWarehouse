@@ -7,6 +7,11 @@ import java.net.UnknownHostException;
 public class TcpClient {
 
     public static void main(String[] args) {
+        TcpClient tcpClient = new TcpClient();
+        tcpClient.TcpClient();
+    }
+
+    public void TcpClient(){
         try {
             //1.创建客户端Socket，指定服务器地址和端口
             Socket socket=new Socket("localhost", 8888);
@@ -26,15 +31,17 @@ public class TcpClient {
                 System.out.println("我是客户端，服务器说："+info);
             }
             //4.关闭资源
-            br.close();
-            is.close();
-            pw.close();
-            os.close();
-            socket.close();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            cloes(socket,os,pw,is,br);
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void cloes(Socket socket,OutputStream outputStream,PrintWriter printWriter,InputStream inputStream,BufferedReader bufferedReader) throws Exception{
+        bufferedReader.close();
+        inputStream.close();
+        printWriter.close();
+        outputStream.close();
+        socket.close();
     }
 }
