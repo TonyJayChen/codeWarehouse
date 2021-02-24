@@ -99,6 +99,12 @@
             <artifactId>pinyin4j</artifactId>
             <version>2.5.1</version>
         </dependency>
+        <!-- 图片处理jar包 -->
+        <dependency>
+            <groupId>org.im4java</groupId>
+            <artifactId>im4java</artifactId>
+            <version>1.4.0</version>
+        </dependency>
     </dependencies>
 
     <build>
