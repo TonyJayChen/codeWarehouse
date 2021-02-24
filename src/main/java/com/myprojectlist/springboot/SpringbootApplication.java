@@ -10,7 +10,6 @@ import org.springframework.context.annotation.ComponentScan;
  * 注解包下的所有类可以使用@autowirad来自动注入
  */
 @SpringBootApplication
-@EnableAutoConfiguration
 @ComponentScan("com.*")
 public class SpringbootApplication {
 

@@ -6,7 +6,10 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class DateUtil {
     /**
@@ -245,5 +248,192 @@ public class DateUtil {
     public static String getNowDateAsString(){
         String currDate = dateToString(new Date());
         return currDate;
+    }
+
+    /***
+     *
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    public static Integer getDifMonth(Date startDate, Date endDate){
+        Calendar start = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+        start.setTime(startDate);
+        end.setTime(endDate);
+        int result = end.get(Calendar.MONTH) - start.get(Calendar.MONTH);
+        int month = (end.get(Calendar.YEAR) - start.get(Calendar.YEAR)) * 12;
+        return Math.abs(month + result);
+    }
+
+
+    /***
+     * 获取某月总天数
+     * @param date
+     * @return
+     */
+    public static int getDaysOfMonth(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+    }
+
+
+    /**
+     * 获取相差天数
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    public static long getDifDay(Date startDate, Date endDate){
+        long betweenDate = (endDate.getTime() - startDate.getTime())/(60*60*24*1000);
+        return betweenDate;
+    }
+
+
+    /**
+     * 获得当天零时零分零秒
+     * @return
+     */
+    public static Date initDateZeroDay() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        return calendar.getTime();
+    }
+
+    /**
+     * 获得当天23时59分59秒
+     * @return
+     */
+    public static Date initDateNineDay() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        return calendar.getTime();
+    }
+
+
+    /***
+     * 某月第一天
+     * @param currentDate
+     * @return
+     */
+    public static Date monthFirstDay(Date currentDate){
+        // 获取本月的第一天
+        Calendar cale = Calendar.getInstance();
+        cale.setTime(currentDate);
+        cale.add(Calendar.MONTH, 0);
+        cale.set(Calendar.DAY_OF_MONTH, 1);
+        return cale.getTime();
+    }
+
+    /***
+     * 某月最后一天
+     * @param currentDate
+     * @return
+     */
+    public static Date monthLastDay(Date currentDate){
+        // 获取本月的第一天
+        Calendar cale = Calendar.getInstance();
+        cale.setTime(currentDate);
+        cale.add(Calendar.MONTH, 1);
+        cale.set(Calendar.DAY_OF_MONTH, 0);
+        return cale.getTime();
+    }
+
+
+    /***
+     *
+     * @param currentDate
+     * @return
+     */
+    public static Date initDateZeroDay(Date currentDate) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        return calendar.getTime();
+    }
+
+    /**
+     * 获得当天23时59分59秒
+     * @return
+     */
+    public static Date initDateNineDay(Date currentDate) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        return calendar.getTime();
+    }
+
+
+    /***
+     * 当周第一天
+     * @param date
+     * @return
+     */
+    public static Date getFirstDayOfWeek(Date date) {
+        Calendar cal = Calendar.getInstance();
+        try {
+            cal.setTime(date);
+            cal.set(Calendar.DAY_OF_WEEK, 2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cal.getTime();
+    }
+
+
+    /***
+     * 当周最后一天
+     * @param date
+     * @return
+     */
+    public static Date getLastDayOfWeek(Date date) {
+        Calendar cal = Calendar.getInstance();
+        try {
+            cal.setTime(date);
+            cal.set(Calendar.DAY_OF_WEEK, 2);
+            cal.set(Calendar.DATE, cal.get(Calendar.DATE) + 6);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return cal.getTime();
+    }
+    /**
+     * findDates方法概述:
+     * 时间段中的每一天
+     */
+    public static List<Date> findDates(Date dBegin, Date dEnd) {
+        List lDate = new ArrayList();
+        lDate.add(dBegin);
+        Calendar calBegin = Calendar.getInstance();
+        // 使用给定的 Date 设置此 Calendar 的时间
+        calBegin.setTime(dBegin);
+        Calendar calEnd = Calendar.getInstance();
+        // 使用给定的 Date 设置此 Calendar 的时间
+        calEnd.setTime(dEnd);
+        // 测试此日期是否在指定日期之后
+        while (dEnd.after(calBegin.getTime())) {
+            // 根据日历的规则，为给定的日历字段添加或减去指定的时间量
+            calBegin.add(Calendar.DAY_OF_MONTH, 1);
+            lDate.add(calBegin.getTime());
+        }
+        return lDate;
+    }
+
+    public static void main(String[] args) throws ParseException {
+        Date currentDate = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println("==============="+sdf.format(getFirstDayOfWeek(currentDate)));
+        System.out.println("==============="+sdf.format(getLastDayOfWeek(currentDate)));
     }
 }

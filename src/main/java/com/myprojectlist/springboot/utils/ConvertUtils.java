@@ -584,4 +584,35 @@ public class ConvertUtils {
             return BigDecimal.ZERO.setScale(2, BigDecimal.ROUND_HALF_UP).toEngineeringString();
         }
     }
+
+    /***
+     *  验证手机号
+     * @param mobile
+     * @return
+     */
+    public static boolean validateMobile(String mobile){
+        if(isEmpty(mobile)){
+            return false;
+        }
+        String regex = "^1[3|4|5|7|8|9]\\d{9}$";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(mobile);
+        return m.matches();
+    }
+
+
+    /***
+     *  验证邮箱
+     * @param email
+     * @return
+     */
+    public static boolean validateEmail(String email){
+        if(isEmpty(email)){
+            return false;
+        }
+        String regex = "^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(email);
+        return m.matches();
+    }
 }
