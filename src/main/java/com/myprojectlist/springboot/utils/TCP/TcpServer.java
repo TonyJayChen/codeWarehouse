@@ -5,7 +5,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class TcpServer {
+class TcpServer {
 
     public static void main(String[] args) {
         try {

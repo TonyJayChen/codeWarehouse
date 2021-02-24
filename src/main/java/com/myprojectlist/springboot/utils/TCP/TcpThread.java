@@ -3,7 +3,7 @@ package com.myprojectlist.springboot.utils.TCP;
 import java.io.*;
 import java.net.Socket;
 
-public class TcpThread extends Thread {
+class TcpThread extends Thread {
 
     /**
      * 和本线程相关的Socket
